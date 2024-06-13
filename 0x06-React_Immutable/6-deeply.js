@@ -1,0 +1,9 @@
+// 6-deeply.js
+import { Map } from 'immutable';
+
+// Function to deeply merge two objects and return an Immutable List
+export function mergeDeeplyElements(page1, page2) {
+    const map1 = Map(page1);
+    const map2 = Map(page2);
+    return map1.mergeDeep(map2).toList();
+}
