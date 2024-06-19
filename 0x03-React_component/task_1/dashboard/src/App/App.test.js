@@ -1,21 +1,24 @@
 // App.test.js
 
 import React from 'react';
-import { render, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom/extend-expect';
+import { shallow } from 'enzyme';
 import App from './App';
 
-test('logOut function and alert are called when Ctrl+H is pressed', () => {
-  const logOutMock = jest.fn();
-  const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
+describe('<App />', () => {
+  it('should call logOut and display alert when control and h keys are pressed', () => {
+    const logOutMock = jest.fn();
+    const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
 
-  const { unmount } = render(<App logOut={logOutMock} />);
+    const wrapper = shallow(<App logOut={logOutMock} />);
 
-  fireEvent.keyDown(document, { ctrlKey: true, key: 'h' });
+    // Simulate the keydown event for control + h
+    const event = new KeyboardEvent('keydown', { ctrlKey: true, key: 'h' });
+    document.dispatchEvent(event);
 
-  expect(alertMock).toHaveBeenCalledWith('Logging you out');
-  expect(logOutMock).toHaveBeenCalled();
+    expect(alertMock).toHaveBeenCalledWith('Logging you out');
+    expect(logOutMock).toHaveBeenCalled();
 
-  alertMock.mockRestore();
-  unmount();
+    // Clean up
+    alertMock.mockRestore();
+  });
 });
