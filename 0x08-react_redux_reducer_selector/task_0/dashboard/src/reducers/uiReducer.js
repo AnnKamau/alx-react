@@ -1,7 +1,34 @@
-// uiActionTypes.js
+// uiReducer.js
 
-export const DISPLAY_NOTIFICATION_DRAWER = 'DISPLAY_NOTIFICATION_DRAWER';
-export const HIDE_NOTIFICATION_DRAWER = 'HIDE_NOTIFICATION_DRAWER';
-export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
-export const LOGIN_FAILURE = 'LOGIN_FAILURE';
-export const LOGOUT = 'LOGOUT';
+import {
+  DISPLAY_NOTIFICATION_DRAWER,
+  HIDE_NOTIFICATION_DRAWER,
+  LOGIN_SUCCESS,
+  LOGIN_FAILURE,
+  LOGOUT
+} from '../actions/uiActionTypes';
+
+// Initial state
+const initialState = {
+  isNotificationDrawerVisible: false,
+  isUserLoggedIn: false,
+  user: {}
+};
+
+// Reducer function
+export function uiReducer(state = initialState, action) {
+  switch (action.type) {
+    case DISPLAY_NOTIFICATION_DRAWER:
+      return { ...state, isNotificationDrawerVisible: true };
+    case HIDE_NOTIFICATION_DRAWER:
+      return { ...state, isNotificationDrawerVisible: false };
+    case LOGIN_SUCCESS:
+      return { ...state, isUserLoggedIn: true };
+    case LOGIN_FAILURE:
+      return { ...state, isUserLoggedIn: false };
+    case LOGOUT:
+      return { ...state, isUserLoggedIn: false };
+    default:
+      return state;
+  }
+}
