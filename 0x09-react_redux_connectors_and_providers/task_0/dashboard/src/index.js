@@ -1,11 +1,17 @@
 // index.js
 
-import { combineReducers } from 'redux';
-import uiReducer from './uiReducer';  // Import your uiReducer
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import rootReducer from './reducers';  // Import the rootReducer
+import App from './App/App';
 
-const rootReducer = combineReducers({
-  uiReducer,
-  // other reducers can be added here
-});
+const store = createStore(rootReducer);
 
-export default rootReducer;
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
